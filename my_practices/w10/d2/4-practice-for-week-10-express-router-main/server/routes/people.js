@@ -6,6 +6,7 @@ router.get("/", (req, res) => {
   res.json("Number 1");
 });
 
+// /people/1/likes
 router.post("/:personId/likes", (req, res) => {
   res.json("Number 2");
 });

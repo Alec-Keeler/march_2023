@@ -1,5 +1,6 @@
 Initialize an Express application
 Use Express to send simple text and JSON in response to a request from a client
+    redirect, render
 Create a route handler using express
 Predict the order that Express will match requests with route handlers
 Justify the selection of Express as a back-end framework

@@ -1,0 +1,24 @@
+FE
+    HTML, CSS, Dom manip, client side, UI/UX, React
+    Designing requests
+    Handle responses
+BE
+    Express, SQL, servers, hidden code?, ORM, db, auth
+    Handle requests
+    Design responses
+
+Express end point methods
+    get
+    post
+    put/patch
+    delete
+    use
+
+Express response methods
+    send - plain text (if sending objects (not strings) send will convert to json)
+    json - always sends json response
+
+Retrieving user input
+    req.body
+    req.params
+    req.query

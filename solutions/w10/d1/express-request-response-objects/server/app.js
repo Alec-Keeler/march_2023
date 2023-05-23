@@ -10,10 +10,12 @@ app.use(express.json());
  *     Route: /version
  *     Response (Text): "1.0.0"
  */
-// Your code here
+//!!START
 app.get('/version', (req, res) => {
-    res.send('1.0.0')
-})
+    res.send('1.0.0');
+});
+//!!END
+
 /**
  *  Basic Phase 2 - Route param and JSON response
  *      Method: GET
@@ -30,20 +32,21 @@ app.get('/version', (req, res) => {
  *  Hint: Use your name, birth date and favorite movies (as strings in the code)
  *  combined with the id sent as a route parameter in the url
  */
-// Your code here
-app.get('/viewers/:banana', (req, res) => {
+//!!START
+app.get('/viewers/:id', (req, res) => {
     res.json({
-        id: req.params.banana,
-        firstName: 'Alec',
-        lastName: 'Keeler',
-        height: '5ft 2in',
+        id: req.params.id,
+        firstName: 'Sam',
+        lastName: 'Foster',
+        birthDate: '12/01/2000',
         favoriteMovies: [
-            'A Knight\'s Tale',
-            'The Prestige',
-            'The Old Guard' 
+            'Chicken Run',
+            'Galaxy Quest',
+            'Miss Congeniality',
         ]
-    })
-})
+    });
+});
+//!!END
 
 /** Basic Phase 3 - Query params in URL
  *      Method: GET
@@ -62,14 +65,16 @@ app.get('/viewers/:banana', (req, res) => {
  *          message required
  *          message required
  */
-// Your code here
+//!!START
 app.get('/info', (req, res) => {
-    if (!req.query.message) {
-        res.send('Message is required')
+    if (req.query.message) {
+        res.send(req.query.message);
     } else {
-        res.send(req.query.message)
+        res.send('message required');
     }
-})
+});
+//!!END
+
 /**
  *  IMPORTANT: Scroll to the top for basic phases.
  *
@@ -102,7 +107,16 @@ app.get('/info', (req, res) => {
  *      Alternate response object:
  *          { "id": 98765432, "name": "Honey Sweet", "year": 1967, "isFavorite": false }
  */
-// Your code here
+//!!START
+app.post('/movies', (req, res) => {
+    res.json({
+        id: Math.floor(Math.random()*10000000),
+        name: String(req.body.name),
+        year: parseInt(req.body.year),
+        isFavorite: Boolean(req.body.favorite),
+    });
+});
+//!!END
 
 /**
  *  Advanced Bonus Phase B - Research how to return static
@@ -119,7 +133,9 @@ app.get('/info', (req, res) => {
  *
  *      Test route: /logo.png
  */
-// Your code here
+//!!START
+app.use(express.static('public'));
+//!!END
 
 // DO NOT EDIT - Set port and listener
 if (require.main === module) {

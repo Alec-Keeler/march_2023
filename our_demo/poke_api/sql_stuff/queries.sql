@@ -73,3 +73,66 @@ FROM poke_trainers
 JOIN pokemon ON (poke_trainers.pokemon_id = pokemon.id)
 JOIN trainers ON (poke_trainers.trainer_id = trainers.id)
 WHERE trainers.name = 'Alec';
+
+SELECT COUNT(*) FROM pokemon;
+
+SELECT AVG(popularity) FROM pokemon;
+
+SELECT SUM(pokedex_num), name, type FROM pokemon;
+
+SELECT AVG(popularity) FROM pokemon
+WHERE origin_id = 1;
+
+SELECT AVG(popularity) FROM pokemon
+WHERE origin_id IN (1, 2);
+
+SELECT AVG(popularity), name FROM pokemon
+GROUP BY origin_id;
+
+SELECT AVG(popularity), origin_id FROM pokemon
+GROUP BY origin_id
+HAVING origin_id IN (1, 2);
+
+SELECT name, origin_id, poke_origins.id, region FROM pokemon
+JOIN poke_origins ON (poke_origins.id = pokemon.origin_id)
+WHERE region = 'Kanto';
+
+SELECT id FROM poke_origins
+WHERE region = 'Kanto'
+
+SELECT name, type, origin_id FROM pokemon
+WHERE origin_id IN (
+    SELECT id FROM poke_origins
+    WHERE region = 'Kanto'
+);
+
+
+SELECT trainers.name FROM trainers
+WHERE id IN (
+    SELECT trainer_id FROM poke_trainers
+    WHERE pokemon_id IN (
+        SELECT id FROM pokemon
+        WHERE origin_id IN (
+            SELECT id FROM poke_origins
+            WHERE region = 'Hoenn'
+        )
+    )
+);
+
+INSERT INTO pokemon (name, type, pokedex_num, evolves, popularity, origin_id)
+VALUES
+('Rayquaza', 'dragon', 384, 0, 101, (
+    SELECT id FROM poke_origins
+    WHERE region = 'Hoenn'
+));
+
+DELETE FROM pokemon
+WHERE origin_id = (
+    SELECT id FROM poke_origins
+    WHERE region = 'Sinnoh'
+);
+SELECT * FROM pokemon
+WHERE origin_id IN (
+    SELECT id FROM poke_origins
+    WHERE region = 'Sinnoh'
+);

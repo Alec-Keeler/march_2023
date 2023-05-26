@@ -31,8 +31,7 @@ CREATE TABLE trainers (
     age INTEGER NOT NULL,
     gender VARCHAR,
     gym_leader BOOLEAN DEFAULT 0,
-    num_badges INTEGER DEFAULT 0,
-    num_pokemon INTEGER DEFAULT 0
+    num_badges INTEGER DEFAULT 0
 );
 
 CREATE TABLE poke_trainers (

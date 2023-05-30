@@ -136,3 +136,10 @@ WHERE origin_id IN (
     SELECT id FROM poke_origins
     WHERE region = 'Sinnoh'
 );
+
+
+CREATE UNIQUE INDEX idx_u_pokemon_name ON pokemon(name);
+
+EXPLAIN QUERY PLAN
+SELECT * FROM pokemon
+WHERE name = 'Mudkip';

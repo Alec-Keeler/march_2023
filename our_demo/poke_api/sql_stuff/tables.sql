@@ -14,9 +14,9 @@ CREATE TABLE poke_origins (
 
 CREATE TABLE pokemon (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name VARCHAR(100) NOT NULL UNIQUE,
+    name VARCHAR(100) NOT NULL,
     type VARCHAR(20) NOT NULL,
-    pokedex_num INTEGER NOT NULL UNIQUE,
+    pokedex_num INTEGER NOT NULL,
     evolves BOOLEAN NOT NULL,
     popularity NUMERIC(5,2),
     -- origin_id INTEGER,

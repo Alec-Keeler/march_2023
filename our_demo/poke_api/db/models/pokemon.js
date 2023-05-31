@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Trainer extends Model {
+  class Pokemon extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,32 +13,28 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Trainer.init({
+  Pokemon.init({
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        len: [4, 100]
-      }
+      unique: true
     },
-    age: {
+    type: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    pokedexNum: {
       type: DataTypes.INTEGER,
-      validate: {
-        max: 9002,
-        min: 18,
-        isOdd(value) {
-          if ( value % 2 === 0) {
-            throw new Error('Age must be an odd number')
-          }
-        }
-      }
+      allowNull: false
     },
-    gender: DataTypes.STRING,
-    gymLeader: DataTypes.BOOLEAN,
-    numBadges: DataTypes.INTEGER
+    evolves: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    popularity: DataTypes.NUMERIC
   }, {
     sequelize,
-    modelName: 'Trainer',
+    modelName: 'Pokemon',
   });
-  return Trainer;
+  return Pokemon;
 };

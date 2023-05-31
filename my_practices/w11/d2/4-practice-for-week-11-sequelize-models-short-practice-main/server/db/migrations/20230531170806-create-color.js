@@ -9,19 +9,22 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING(20),
         allowNull: false,
-        unique: true
+        unique: true,
+        type: Sequelize.STRING
+      },
+      isPrimary: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
+        type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
+        type: Sequelize.DATE
       }
     });
   },

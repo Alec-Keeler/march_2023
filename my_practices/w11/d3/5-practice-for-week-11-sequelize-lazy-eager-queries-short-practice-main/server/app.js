@@ -15,6 +15,7 @@ app.use(express.json());
 app.get('/bands-lazy/:id', async (req, res, next) => {
     const band = await Band.findByPk(req.params.id);
     const bandMembers = await band.getMusicians({ order: [ ['firstName'] ] });
+    // SELECT * FROM Musicians WHERE bandId = (band.id)
     const payload = {
         id: band.id,
         name: band.name,
@@ -41,12 +42,14 @@ app.get('/bands-lazy', async (req, res, next) => {
     for(let i = 0; i < allBands.length; i++){
         const band = allBands[i];
         // Your code here
+        const musicians = await band.getMusicians({order: [['firstName']]})
         const bandData = {
             id: band.id,
             name: band.name,
             createdAt: band.createdAt,
             updatedAt: band.updatedAt,
             // Your code here
+            Musicians: musicians
         };
         payload.push(bandData);
     }
@@ -57,6 +60,8 @@ app.get('/bands-lazy', async (req, res, next) => {
 app.get('/bands-eager', async (req, res, next) => {
     const payload = await Band.findAll({
         // Your code here
+        include: Musician,
+        order: [['name', 'ASC'], [Musician, 'firstName']]
     });
     res.json(payload);
 });

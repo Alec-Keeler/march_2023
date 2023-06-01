@@ -46,7 +46,6 @@ describe('Many-to-Many Specs', () => {
             await marine.addInstruments(await models.Instrument.findAll({
                 where: {type: ['saxophone']}
             }));
-
             const afterMarine = await marine.getInstruments()
 
             expect(afterMarine).to.be.an('array');

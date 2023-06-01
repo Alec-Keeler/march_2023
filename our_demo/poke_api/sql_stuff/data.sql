@@ -4,7 +4,7 @@ VALUES
 ('Hoenn', 'G3', 'Professor Birch', 'Leon'),
 ('Sinnoh', 'G4', 'Professor Roann', 'Barry');
 
-INSERT INTO pokemon (name, type, pokedex_num, evolves, popularity, origin_id)
+INSERT INTO pokemons (name, type, pokedexNum, evolves, popularity, originId)
 VALUES
 ('Charmander', 'fire', 4, 1, 90.6, 1),
 ('Ditto', 'normal', 132, 0, 100, 1),

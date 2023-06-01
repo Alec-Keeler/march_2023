@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Trainer.belongsToMany(models.Pokemon, {
+        through: models.PokeTrainer,
+        foreignKey: 'trainerId',
+        otherKey: 'pokemonId'
+      })
+      // SELECT * FROM Trainers
+      // JOIN PokeTrainers ON (Trainers.id = PokeTrainers.trainerId)
+      // JOIN Pokemons ON (PokeTrainers.pokemonId = Pokemons.id)
     }
   }
   Trainer.init({

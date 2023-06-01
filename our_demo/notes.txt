@@ -22,3 +22,20 @@ Retrieving user input
     req.body
     req.params
     req.query
+
+Sequelize query methods
+    findOne
+    findAll
+    findByPk
+    update
+    destroy
+    create
+    build
+    validate
+    save
+
+Sequelize Association methods
+    hasOne
+    hasMany
+    belongsTo
+    belongsToMany

@@ -4,7 +4,7 @@ module.exports = {
     dialect: "sqlite", // specify RDBMS
     seederStorage: "sequelize",
     benchmark: true, // prints execution time to terminal
-    logQueryParameters: true, // prints parameters with logged SQL
+    // logQueryParameters: true, // prints parameters with logged SQL
     typeValidation: true, // model-level data type validation
     // logging: false // print SQL to terminal unless set to false
   },

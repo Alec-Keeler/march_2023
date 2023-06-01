@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // Your code here
+      Band.hasMany(models.Musician, {
+        foreignKey: 'bandId',
+        onDelete: 'CASCADE',
+        hooks: true
+      }) //JOIN Musicians ON (Bands.id = Musicians.bandId)
     }
   };
   Band.init({

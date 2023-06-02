@@ -7,6 +7,55 @@ const { Op } = require("sequelize");
 
 app.use(express.json())
 
+app.get('/poke-agg', async(req, res) => {
+    // retrieve the number of pokemon
+    const numPokemon = await Pokemon.count()
+    // console.log(numPokemon)
+    // const data = await Pokemon.findAll()
+    // console.log(data.length)
+    // retrieve the lowest popularity value
+    const minPop = await Pokemon.min('popularity')
+    // console.log(minPop)
+    
+    // retrieve the highest popularity value
+    const maxPop = await Pokemon.max('popularity')
+
+    // retrieve the number of gym badges of all trainers
+    const totalBadges = await Trainer.sum('numBadges')
+
+    // find the Alec trainer record and retrieve the average popularity of pokemon related to Alec
+    const trainer = await Trainer.findOne({
+        where: {
+            name: 'Alec'
+        },
+        include: {
+            model: Pokemon,
+        }
+    })
+    // console.log(trainer)
+    let totalPop = 0
+    for (let i = 0; i < trainer.Pokemons.length; i++) {
+        const pokemon = trainer.Pokemons[i];
+        const pop = pokemon.popularity
+        totalPop += pop
+    }
+    const averagePop = totalPop / trainer.Pokemons.length
+    console.log(averagePop)
+
+    // attach each piece of data to the Alec record and respond with the collected data
+    const record = trainer.toJSON()
+    // console.log(record)
+    delete record.Pokemons
+    // console.log(record)
+    record.averageTrainerPop = averagePop
+    record.totalPokemon = numPokemon
+    record.minPop = minPop
+    record.maxPop = maxPop
+    record.totalTrainerBadges = totalBadges
+
+    res.json(record)
+})
+
 app.post('/related-create', async(req, res) => {
     // create a 1-M related record (associate a given new pokemon to an existing origin)
     const pokeOrigin = await PokeOrigin.findByPk(1)

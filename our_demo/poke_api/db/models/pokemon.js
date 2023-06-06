@@ -31,21 +31,39 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
+      validate: {
+        isAlpha: true,
+        len: [2, 255]
+      }
     },
     type: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isLowercase: true,
+        isIn: ['fire', 'water', 'normal', 'rock', 'psychic', 'steel', 'dragon', 'electric']
+      }
     },
     pokedexNum: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        min: 1,
+        max: 1010
+      }
     },
     evolves: {
       type: DataTypes.BOOLEAN,
       allowNull: false
     },
-    popularity: DataTypes.NUMERIC,
+    popularity: {
+      type: DataTypes.NUMERIC,
+      validate: {
+        min: 1,
+        max: 100
+      }
+    },
     originId: DataTypes.INTEGER
   }, {
     sequelize,

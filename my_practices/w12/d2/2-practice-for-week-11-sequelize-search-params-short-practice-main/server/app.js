@@ -32,6 +32,7 @@ app.get('/musicians', async (req, res, next) => {
         query.offset = size * (page - 1);
     }
     
+    const {firstName, lastName, bandName, instrumentTypes} = req.query
 
     // STEP 1: WHERE clauses on the Musician model
     // ?firstName=XX&lastName=YY
@@ -39,12 +40,17 @@ app.get('/musicians', async (req, res, next) => {
     // End result: { where: { firstName: req.query.firstName } }
 
     // Your code here
+    if (firstName) {
+        query.where.firstName = firstName
+    }
     
     // Add keys to the WHERE clause to match the lastName param, if it exists.
     // End result: { where: { lastName: req.query.lastName } }
     
     // Your code here
-
+    if (lastName) {
+        query.where.lastName = lastName
+    }
 
     // STEP 2: WHERE clauses on the associated Band model
     // ?bandName=XX
@@ -53,6 +59,14 @@ app.get('/musicians', async (req, res, next) => {
     // End result: { include: [{ model: Band, where: { name: req.query.bandName } }] }
 
     // Your code here
+    if (bandName) {
+        query.include.push({
+            model: Band,
+            where: {
+                name: bandName
+            }
+        })
+    }
 
 
     // STEP 3: WHERE Clauses on the associated Instrument model 
@@ -61,16 +75,44 @@ app.get('/musicians', async (req, res, next) => {
     // where the type matches any value in the instrumentTypes param array, if it 
     // exists. Do not include any attributes from the join table 
     // MusicianInstruments.
-    // End result: 
-    /* { 
-        include: [{ 
-            model: Instrument, 
-            where: { type: req.query.instrumentTypes }, 
-            through: { attributes: [] } // Omits the join table attributes
-        }] } 
-    */
 
     // Your code here
+    if (instrumentTypes) {
+        query.include.push({
+            model: Instrument,
+            where: {
+                type: instrumentTypes
+            },
+            through: {
+                attributes: []
+            }
+        })
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     // BONUS STEP 4: Specify Musician attributes to be returned

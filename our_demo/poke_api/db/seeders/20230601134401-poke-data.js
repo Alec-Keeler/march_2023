@@ -9,7 +9,7 @@ const data = [
       { name: 'Tentacool', type: 'water', pokedexNum: 72, evolves: 0, popularity: 30.75},
       { name: 'Geodude', type: 'rock', pokedexNum: 74, evolves: 0, popularity: 42.42},
       { name: 'Snorlax', type: 'normal', pokedexNum: 143, evolves: 1, popularity: 86},
-      { name: 'Mewtwo', type: 'Psychic', pokedexNum: 150, evolves: 0, popularity: 99.9}
+      { name: 'Mewtwo', type: 'psychic', pokedexNum: 150, evolves: 0, popularity: 99.9}
     ]
   },
   {

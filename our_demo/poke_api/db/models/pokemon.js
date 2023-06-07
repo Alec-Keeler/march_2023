@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         isLowercase: true,
-        isIn: ['fire', 'water', 'normal', 'rock', 'psychic', 'steel', 'dragon', 'electric']
+        isIn: [['fire', 'water', 'normal', 'rock', 'psychic', 'steel', 'dragon', 'electric']]
       }
     },
     pokedexNum: {

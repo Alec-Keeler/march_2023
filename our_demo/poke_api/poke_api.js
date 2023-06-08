@@ -3,13 +3,22 @@ const app = express()
 require('dotenv').config()
 
 const { Trainer, Pokemon, PokeOrigin, PokeTrainer } = require('./db/models')
+const { restoreUser } = require('./auth')
 const { Op } = require("sequelize");
 
 const pokeRouter = require('./routes/pokemon')
+const trainerRouter = require('./routes/trainers')
+const sessionRouter = require('./routes/session')
 
 app.use(express.json())
+const cookieParser = require('cookie-parser')
+app.use(cookieParser());
+
+app.use(restoreUser)
 
 app.use('/pokemon', pokeRouter)
+app.use('/trainers', trainerRouter)
+app.use('/session', sessionRouter)
 
 app.get('/search', async(req, res) => {
     // determine pagination values (limit, offset) from size/page query strings
@@ -78,5 +87,6 @@ app.use((err, req, res, next) => {
 })
 
 
-const port = process.env.PORT
-app.listen(port, () => console.log(`Listening on port ${port}...`))
+// const port = process.env.PORT
+// app.listen(port, () => console.log(`Listening on port ${port}...`))
+module.exports = app;

@@ -2,6 +2,19 @@ const express = require('express');
 const router = express.Router();
 
 const { Pokemon, PokeOrigin, Trainer } = require('../db/models')
+const { requireAuth } = require('../auth')
+
+router.get('/scopes', async (req, res) => {
+    // retrieve a pokemon without timestamps
+    const pokemon = await Pokemon.findAll()
+
+    // retrieve all pokemon with a given type
+    const firePokemon = await Pokemon.scope('defaultScope', 'getFire' ).findAll()
+
+    // retrieve all pokemon associated to trainers with more than X badges
+    const trainerPokemon = await Pokemon.scope('defaultScope', {method: ['getPokemonByBadges', 6]}).findAll()
+    res.json(trainerPokemon)
+})
 
 router.get('/', async(req, res) => {
     const pokemon = await Pokemon.findAll({
@@ -63,7 +76,7 @@ const createPokeChecker = (req, res, next) => {
     next()
 }
 
-router.post('/', createPokeChecker, async(req, res, next) => {
+router.post('/', requireAuth, createPokeChecker, async(req, res, next) => {
     const { name, type, pokedexNum, evolves, popularity, region } = req.body
 
     const origin = await PokeOrigin.findOne({
@@ -159,5 +172,6 @@ router.delete('/:id', async(req, res, next) => {
         message: `The pokemon with an id of ${req.params.id} has been successfully deleted!`
     })
 })
+
 
 module.exports = router;

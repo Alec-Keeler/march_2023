@@ -29,6 +29,9 @@ module.exports = {
         type: Sequelize.INTEGER,
         defaultValue: 0
       },
+      hashedPassword: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

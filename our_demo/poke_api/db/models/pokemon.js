@@ -68,6 +68,38 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Pokemon',
+    defaultScope: {
+      order: [['pokedexNum', 'ASC']],
+      attributes: {
+        exclude: ['createdAt', 'updatedAt']},
+      // where: {
+      //   type: 'water'
+      // }
+    },
+    scopes: {
+      getFire: {
+        where: {
+          type: 'fire'
+        }
+      },
+      getPokemonByBadges(badgeNum) {
+        const { Trainer } = require('../models')
+        const {Op} = require('sequelize')
+        return {
+          include: {
+            model: Trainer,
+            where: {
+              numBadges: {
+                [Op.gte]: badgeNum
+              }
+            },
+            through: {
+              attributes: []
+            }
+          }
+        }
+      }
+    }
   });
   return Pokemon;
 };

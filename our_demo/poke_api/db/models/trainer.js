@@ -43,7 +43,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     gender: DataTypes.STRING,
     gymLeader: DataTypes.BOOLEAN,
-    numBadges: DataTypes.INTEGER
+    numBadges: DataTypes.INTEGER,
+    hashedPassword: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Trainer',
